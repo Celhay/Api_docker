@@ -12,7 +12,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:2.1-nanoserver-1809 AS build
 WORKDIR /src
 COPY ["Api_docker/Api_docker.csproj", "Api_docker/"]
 RUN dotnet restore "Api_docker/Api_docker.csproj"
-COPY . .
+COPY . ./
 WORKDIR "/src/Api_docker"
 RUN dotnet build "Api_docker.csproj" -c Release -o /app/build
 

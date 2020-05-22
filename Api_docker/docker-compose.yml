@@ -1,0 +1,37 @@
+version: '3.7'
+
+# list des containers
+services:
+
+  # Container 1 BDD
+  # wp_db-API:
+  #     container_name: wp_db-API
+  #     image: mysql:latest
+  #     command: --default-authentication-plugin=mysql_native_password
+  #     #volumes:
+  #         #- ./server/db:/var/lib/mysql
+  #     # ports:
+  #     #       - "3306:3306"
+  #     restart: always
+  #     environment:
+  #         MYSQL_RANDOM_ROOT_PASSWORD: '1'
+  #         MYSQL_DATABASE: API_BDD_DATABASE
+  #         MYSQL_USER: API_BDD_USER
+  #         MYSQL_PASSWORD: API_BDD_PASSWORD
+
+  # Container 2 API
+  webapp:
+    container_name: webapp_API
+    image: mcr.microsoft.com/dotnet/core/sdk:2.1-nanoserver-1809
+    ports:
+      - 80
+      - 443
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    volumes:
+      - ~/.aspnet/https/https
+
+networks:
+  proxy:
+    driver: bridge
